@@ -43,7 +43,7 @@ export default function ChatsList () {
 
   return (
     <StyledChatsList>
-      <StyledFindUserButton onClick={findUserButtonHandler}>🔎︎</StyledFindUserButton>
+      <StyledFindUserButton onClick={findUserButtonHandler}>&#9998;</StyledFindUserButton>
 
       {chats.map((chat) => (
         <StyledChat id={user.displayName + chat.name} onClick={chatClickHandler} key={user.displayName + chat.name}>
