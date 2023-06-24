@@ -19,7 +19,7 @@ export default function CurrentChat () {
   
   return (
     <StyledCurrentChat style={{display: display}}>
-      <StyledFindButton onClick={openHandler}>🔍︎</StyledFindButton>
+      <StyledFindButton onClick={openHandler}>&#9998;</StyledFindButton>
       <ExitButton />
       {render? (
         <Messages />
