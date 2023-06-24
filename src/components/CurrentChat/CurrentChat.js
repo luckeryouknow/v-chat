@@ -41,7 +41,7 @@ export default function CurrentChat () {
     if (windowSize.innerWidth <= 800) {
       return (
         <StyledCurrentChat style={{display: display}}>
-          <StyledFindButton onClick={openHandler}>🔍︎</StyledFindButton>
+          <StyledFindButton onClick={openHandler}><p>🔍︎</p></StyledFindButton>
           <ExitButton />
           {render? (
             <Messages />
@@ -54,7 +54,7 @@ export default function CurrentChat () {
     } else {
       return (
         <StyledCurrentChat style={{display: "block"}}>
-          <StyledFindButton onClick={openHandler}>🔍︎</StyledFindButton>
+          <StyledFindButton onClick={openHandler}><p>🔍︎</p></StyledFindButton>
           <ExitButton />
           {render? (
             <Messages />
