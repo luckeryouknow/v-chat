@@ -23,6 +23,7 @@ export const StyledFindButton = styled.button`
   outline: none;
   color: #501DFF;
   cursor: pointer;
+  font-variant-emoji: text;
 
   @media(max-width: 800px) {
     & {

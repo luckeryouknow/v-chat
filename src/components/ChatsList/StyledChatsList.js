@@ -20,6 +20,7 @@ export const StyledFindUserButton = styled.button`
   outline: none;
   color: #501DFF;
   cursor: pointer;
+  font-varient-emoji: text;
 
   @media(max-width: 800px) {
     & {
