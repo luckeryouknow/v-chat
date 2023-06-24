@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 
 export const StyledCurrentChat = styled.div`
+  display: block;
   width: calc(100% - 300px);
   height: 100vh;
   background-color: #F8F8F8;
