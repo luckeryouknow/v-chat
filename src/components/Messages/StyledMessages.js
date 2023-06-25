@@ -66,6 +66,24 @@ export const StyledMessageText = styled.div`
   border-radius: 0px 8px 8px;
   max-width: 500px;
   text-align: left;
+
+  @media(max-width: 600px) {
+    & {
+      max-width: 350px;
+    }
+  }
+
+  @media(max-width: 425px) {
+    & {
+      max-width: 300px;
+    }
+  }
+
+  @media(max-width: 375px) {
+    & {
+      max-width: 200px;
+    }
+  }
 `;
 
 export const StyledUserMessageText = styled.div`
@@ -83,4 +101,22 @@ export const StyledUserMessageText = styled.div`
   border-radius: 8px 0px 8px 8px;
   max-width: 500px;
   text-align: left;
+
+  @media(max-width: 600px) {
+    & {
+      max-width: 350px;
+    }
+  }
+
+  @media(max-width: 425px) {
+    & {
+      max-width: 300px;
+    }
+  }
+
+  @media(max-width: 375px) {
+    & {
+      max-width: 200px;
+    }
+  }
 `;
