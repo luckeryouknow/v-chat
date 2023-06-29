@@ -5,12 +5,12 @@ import { selectFindUserMargin, selectInputValue } from "./findUserSlice";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function FindUser () {
   const [user] = useAuthState(auth);
 
-  const [localUser] = useState(user);
+  const [localUser, setLocalUser] = useState(user);
 
   const margin = useSelector(selectFindUserMargin);
   const inputValue = useSelector(selectInputValue);
@@ -25,7 +25,7 @@ export default function FindUser () {
     let docSnap = await getDoc(docRef);
 
     if (docSnap.exists() && docSnap.data().name !== localUser.displayName && inputValue !== localUser.displayName) {
-      await setDoc(doc(db, user.displayName + " chats", inputValue), {
+      await setDoc(doc(db, localUser.displayName + " chats", inputValue), {
         name: inputValue,
         email: docSnap.data().email,
         profilePicture: docSnap.data().userPhoto,
@@ -57,6 +57,10 @@ export default function FindUser () {
     dispatch(setInputValue(event.target.value));
   };
 
+  useEffect(() => {
+    setLocalUser(user)
+  }, [user]);
+  
   return (
     <StyledFindUser findUserMarginTop={margin}>
       <StyledContainer>

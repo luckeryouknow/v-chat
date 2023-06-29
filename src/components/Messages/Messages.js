@@ -12,7 +12,7 @@ export default function Messages () {
   const currentChat = useSelector(selectCurrentChat);
   const [user] = useAuthState(auth);
 
-  const [localUser] = useState(user);
+  const [localUser, setLocalUser] = useState();
 
   const messagesRef = useRef(null);
 
@@ -21,6 +21,7 @@ export default function Messages () {
   };
 
   useEffect(() => {
+    setLocalUser(user);
     if (currentChat !== "") {
       const messagesQuery = query(
         collection(db, currentChat),
@@ -37,7 +38,7 @@ export default function Messages () {
       });
       return () => unsubscribe;
     };
-  }, [currentChat]);
+  }, [currentChat, user]);
 
   useEffect(scrollToBottom, [messages]);
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyledInputMessages, StyledInput, StyledButton } from "./StyledInputMessages";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../../firebase";
@@ -11,7 +11,7 @@ export default function InputMessages () {
   const currentChat = useSelector(selectCurrentChat);
   const [user] = useAuthState(auth);
 
-  const [localUser] = useState(user);
+  const [localUser, setLocalUser] = useState();
 
   const inputHandler = (event) => {
     setInputValue(event.target.value);
@@ -38,6 +38,10 @@ export default function InputMessages () {
       });
     };
   };
+
+  useEffect(() => {
+    setLocalUser(user)
+  }, [user])
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {

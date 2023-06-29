@@ -13,7 +13,7 @@ export default function ChatsList () {
   const [chats, setChats] = useState([]);
   const [user] = useAuthState(auth);
 
-  const [localUser] = useState(user);
+  const [localUser, setLocalUser] = useState();
 
   const dispatch = useDispatch();
 
@@ -22,6 +22,8 @@ export default function ChatsList () {
   };
 
   useEffect(() => {
+    setLocalUser(user);
+
     if (localUser) {
       const chatsQuery = query(
         collection(db, localUser.displayName + " chats")
@@ -36,7 +38,7 @@ export default function ChatsList () {
       });
       return () => unsubscribe;
     }
-  }, [localUser]);
+  }, [localUser, user]);
 
   const chatClickHandler = (event) => {
     dispatch(setCurrentChat(event.target.id));
