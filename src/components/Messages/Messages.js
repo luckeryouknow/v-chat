@@ -12,6 +12,8 @@ export default function Messages () {
   const currentChat = useSelector(selectCurrentChat);
   const [user] = useAuthState(auth);
 
+  const [localUser] = useState(user);
+
   const messagesRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -42,7 +44,7 @@ export default function Messages () {
   return (
     <StyledMessages>
       {messages?.map((message) => {
-        if (message.userName === user.displayName) {
+        if (message.userName === localUser.displayName) {
           return (
             <StyledCurrentUserMessage key={message.createdAt}>
               <StyledImage src={message.profilePicture} alt="profile" />

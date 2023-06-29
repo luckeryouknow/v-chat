@@ -5,12 +5,14 @@ import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "firebas
 import { close, selectAuthenticationMargin } from "../Authentication/authenticationSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { doc, setDoc } from "firebase/firestore";
+import { useState } from "react";
 
 export default function Authentication () {
   const dispatch = useDispatch();
   const margin = useSelector(selectAuthenticationMargin);
 
   const [user] = useAuthState(auth);
+  const [localUser] = useState(user);
 
   const signInHandler = () => {
     const provider = new GoogleAuthProvider();
@@ -20,11 +22,11 @@ export default function Authentication () {
   };
 
   onAuthStateChanged(auth, (user) => {
-    if (user) {
+    if (localUser) {
       setDoc(doc(db, "users", user.displayName), {
-        name: user.displayName, 
-        email: user.email,
-        userPhoto: user.photoURL
+        name: localUser.displayName, 
+        email: localUser.email,
+        userPhoto: localUser.photoURL
       })
     }
   });

@@ -35,6 +35,11 @@ export const StyledChat = styled.div`
   cursor: pointer;
   color: #13044F;
   transition: 0.5s;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
 
   &:hover {

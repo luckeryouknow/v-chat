@@ -5,9 +5,13 @@ import { selectFindUserMargin, selectInputValue } from "./findUserSlice";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useState } from "react";
 
 export default function FindUser () {
   const [user] = useAuthState(auth);
+
+  const [localUser] = useState(user);
+
   const margin = useSelector(selectFindUserMargin);
   const inputValue = useSelector(selectInputValue);
   const dispatch = useDispatch();
@@ -20,20 +24,20 @@ export default function FindUser () {
     let docRef = doc(db, "users", inputValue);
     let docSnap = await getDoc(docRef);
 
-    if (docSnap.exists() && docSnap.data().name !== user.displayName && inputValue !== user.displayName) {
+    if (docSnap.exists() && docSnap.data().name !== localUser.displayName && inputValue !== localUser.displayName) {
       await setDoc(doc(db, user.displayName + " chats", inputValue), {
         name: inputValue,
         email: docSnap.data().email,
         profilePicture: docSnap.data().userPhoto,
       });
 
-      await setDoc(doc(db, inputValue + " chats", user.displayName), {
-        name: user.displayName,
-        email: user.email,
-        profilePicture: user.photoURL,
+      await setDoc(doc(db, inputValue + " chats", localUser.displayName), {
+        name: localUser.displayName,
+        email: localUser.email,
+        profilePicture: localUser.photoURL,
       });
     }
-    else if (docSnap.exists() && docSnap.data().name === user.displayName) {
+    else if (docSnap.exists() && docSnap.data().name === localUser.displayName) {
       alert("you are trying to find yourself");
     } else {
       alert("user is not found");

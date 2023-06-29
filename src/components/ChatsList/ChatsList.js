@@ -12,6 +12,9 @@ import { openChat } from "../CurrentChat/currentChatSlice";
 export default function ChatsList () {
   const [chats, setChats] = useState([]);
   const [user] = useAuthState(auth);
+
+  const [localUser] = useState(user);
+
   const dispatch = useDispatch();
 
   const findUserButtonHandler = () => {
@@ -19,9 +22,9 @@ export default function ChatsList () {
   };
 
   useEffect(() => {
-    if (user) {
+    if (localUser) {
       const chatsQuery = query(
-        collection(db, user.displayName + " chats")
+        collection(db, localUser.displayName + " chats")
       );
   
       const unsubscribe = onSnapshot(chatsQuery, (QuerySnapshot) => {
@@ -33,7 +36,7 @@ export default function ChatsList () {
       });
       return () => unsubscribe;
     }
-  }, [user]);
+  }, [localUser]);
 
   const chatClickHandler = (event) => {
     dispatch(setCurrentChat(event.target.id));
@@ -46,11 +49,11 @@ export default function ChatsList () {
       <StyledFindUserButton onClick={findUserButtonHandler}>&#9998;</StyledFindUserButton>
 
       {chats.map((chat) => (
-        <StyledChat id={user.displayName + chat.name} onClick={chatClickHandler} key={user.displayName + chat.name}>
+        <StyledChat id={localUser.displayName + chat.name} onClick={chatClickHandler} key={localUser.displayName + chat.name}>
           <StyledChatImage 
            src={chat.profilePicture} 
            alt="profile" 
-           id={user.displayName + chat.name}
+           id={localUser.displayName + chat.name}
            onClick={chatClickHandler}
           />
           <StyledChatName>{chat.name}</StyledChatName>

@@ -11,27 +11,29 @@ export default function InputMessages () {
   const currentChat = useSelector(selectCurrentChat);
   const [user] = useAuthState(auth);
 
+  const [localUser] = useState(user);
+
   const inputHandler = (event) => {
     setInputValue(event.target.value);
   };
 
   const sendButtonHandler = async () => {
     let currentChatCopy = currentChat;
-    currentChatCopy = currentChatCopy.replace(user.displayName, "");
+    currentChatCopy = currentChatCopy.replace(localUser.displayName, "");
     setInputValue("");
 
     if (inputValue !== "" && inputValue !== undefined && currentChat !== "") {
       await addDoc(collection(db, currentChat), {
         message: inputValue,
-        userName: user.displayName,
-        profilePicture: user.photoURL,
+        userName: localUser.displayName,
+        profilePicture: localUser.photoURL,
         createdAt: serverTimestamp(),
       });
 
-      await addDoc(collection(db, currentChatCopy + user.displayName), {
+      await addDoc(collection(db, currentChatCopy + localUser.displayName), {
         message: inputValue, 
-        userName: user.displayName,
-        profilePicture: user.photoURL,
+        userName: localUser.displayName,
+        profilePicture: localUser.photoURL,
         createdAt: serverTimestamp(),
       });
     };
