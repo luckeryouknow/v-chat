@@ -10,7 +10,8 @@ export default function Messages () {
   const [messages, setMessages] = useState([]);
   const currentChat = useSelector(selectCurrentChat);
 
-  const [localUser, setLocalUser] = useState(auth.currentUser);
+  const [user, setUser] = useState(auth.currentUser);
+  const [localUser, setLocalUser] = useState();
 
   const messagesRef = useRef(null);
 
@@ -19,7 +20,10 @@ export default function Messages () {
   };
 
   useEffect(() => {
-    setLocalUser(auth.currentUser);
+    setUser(auth.currentUser);
+    localStorage.setItem("localUser", JSON.stringify(user));
+    setLocalUser(JSON.parse(localStorage.getItem("localUser")));
+
     if (currentChat !== "") {
       const messagesQuery = query(
         collection(db, currentChat),
@@ -36,7 +40,7 @@ export default function Messages () {
       });
       return () => unsubscribe;
     };
-  }, [currentChat]);
+  }, [currentChat, user]);
 
   useEffect(scrollToBottom, [messages]);
 

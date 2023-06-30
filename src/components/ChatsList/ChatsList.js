@@ -12,6 +12,7 @@ import { onAuthStateChanged } from "firebase/auth";
 export default function ChatsList () {
   const [chats, setChats] = useState([]);
 
+  const [user, setUser] = useState();
   const [localUser, setLocalUser] = useState();
 
   const dispatch = useDispatch();
@@ -21,7 +22,10 @@ export default function ChatsList () {
   };
 
   onAuthStateChanged(auth, () => {
-    setLocalUser(auth.currentUser);
+    setUser(auth.currentUser);
+    localStorage.setItem("localUser", JSON.stringify(user));
+
+    setLocalUser(JSON.parse(localStorage.getItem("localUser")));
 
     if (localUser) {
       const chatsQuery = query(

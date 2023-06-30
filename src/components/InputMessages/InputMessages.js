@@ -10,7 +10,8 @@ export default function InputMessages () {
   const [inputValue, setInputValue] = useState();
   const currentChat = useSelector(selectCurrentChat);
 
-  const [localUser, setLocalUser] = useState(auth.currentUser);
+  const [user, setUser] = useState(auth.currentUser);
+  const [localUser, setLocalUser] = useState();
 
   const inputHandler = (event) => {
     setInputValue(event.target.value);
@@ -39,8 +40,10 @@ export default function InputMessages () {
   };
 
   useEffect(() => {
-    setLocalUser(auth.currentUser)
-  }, [])
+    setUser(auth.currentUser);
+    localStorage.setItem("localUser", JSON.stringify(user));
+    setLocalUser(JSON.parse(localStorage.getItem("localUser")));
+  }, [user])
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
