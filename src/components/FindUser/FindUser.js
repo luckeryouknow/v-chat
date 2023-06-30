@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function FindUser () {
   const [user, setUser] = useState(auth.currentUser);
-  const [localUser, setLocalUser] = useState({});
+  const [localUser, setLocalUser] = useState();
 
   const margin = useSelector(selectFindUserMargin);
   const inputValue = useSelector(selectInputValue);

@@ -13,7 +13,7 @@ export default function ChatsList () {
   const [chats, setChats] = useState([]);
 
   const [user, setUser] = useState();
-  const [localUser, setLocalUser] = useState({});
+  const [localUser, setLocalUser] = useState();
 
   const dispatch = useDispatch();
 
