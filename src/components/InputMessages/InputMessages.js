@@ -18,8 +18,6 @@ export default function InputMessages () {
 
     localStorage.setItem("localUser", JSON.stringify(user));
     setLocalUser(JSON.parse(localStorage.getItem("localUser")));
-
-    console.log(localUser);
   }, [user, currentChat]);
 
   const inputHandler = (event) => {
