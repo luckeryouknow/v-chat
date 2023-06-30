@@ -5,6 +5,7 @@ import { auth, db } from "../../firebase";
 import { selectCurrentChat } from "../CurrentChat/currentChatSlice";
 import { useSelector } from "react-redux";
 
+
 export default function InputMessages () {
   const [inputValue, setInputValue] = useState();
   const currentChat = useSelector(selectCurrentChat);

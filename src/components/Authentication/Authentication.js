@@ -10,13 +10,13 @@ export default function Authentication () {
   const dispatch = useDispatch();
   const margin = useSelector(selectAuthenticationMargin);
 
-  const [localUser, setLocalUser] = useState(auth.currentUser);
+  const [localUser, setLocalUser] = useState();
 
   const signInHandler = () => {
-    setLocalUser(auth.currentUser);
-
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider);
+    
+    setLocalUser(auth.currentUser);
 
     dispatch(close());
   };

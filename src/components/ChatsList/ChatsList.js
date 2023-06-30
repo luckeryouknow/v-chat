@@ -1,17 +1,18 @@
 import { StyledChat, StyledChatImage, StyledChatName, StyledChatsList, StyledFindUserButton } from "./StyledChatsList";
 import { auth, db } from "../../firebase";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { setCurrentChat } from "../CurrentChat/currentChatSlice";
 import { setRender } from "../InputMessages/inputMessagesSlice";
 import { open } from "../FindUser/findUserSlice";
 import { openChat } from "../CurrentChat/currentChatSlice";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function ChatsList () {
   const [chats, setChats] = useState([]);
 
-  const [localUser, setLocalUser] = useState(auth.currentUser);
+  const [localUser, setLocalUser] = useState();
 
   const dispatch = useDispatch();
 
@@ -19,7 +20,7 @@ export default function ChatsList () {
     dispatch(open());
   };
 
-  useEffect(() => {
+  onAuthStateChanged(auth, () => {
     setLocalUser(auth.currentUser);
 
     if (localUser) {
@@ -36,7 +37,7 @@ export default function ChatsList () {
       });
       return () => unsubscribe;
     }
-  }, [localUser]);
+  });
 
   const chatClickHandler = (event) => {
     dispatch(setCurrentChat(event.target.id));
