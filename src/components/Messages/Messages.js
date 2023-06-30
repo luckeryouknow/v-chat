@@ -11,7 +11,7 @@ export default function Messages () {
   const currentChat = useSelector(selectCurrentChat);
 
   const [user, setUser] = useState(auth.currentUser);
-  const [localUser, setLocalUser] = useState();
+  const [localUser, setLocalUser] = useState({});
 
   const messagesRef = useRef(null);
 

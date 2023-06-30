@@ -11,6 +11,7 @@ export default function Authentication () {
   const margin = useSelector(selectAuthenticationMargin);
 
   const [user, setUser] = useState();
+  const [localUser, setLocalUser] = useState({});
 
   const signInHandler = () => {
     const provider = new GoogleAuthProvider();
@@ -22,7 +23,7 @@ export default function Authentication () {
 
   onAuthStateChanged(auth, () => {
     localStorage.setItem("localUser", JSON.stringify(user));
-    const localUser = JSON.parse(localStorage.getItem("localUser"));
+    setLocaluser(JSON.parse(localStorage.getItem("localUser")));
 
     if (localUser) {
       setDoc(doc(db, "users", localUser.displayName), {
