@@ -4,15 +4,13 @@ import { StyledCurrentName, StyledCurrentUserMessage, StyledImage, StyledMessage
 import { db } from "../../firebase";
 import { selectCurrentChat } from "../CurrentChat/currentChatSlice";
 import { useSelector } from "react-redux";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 
 export default function Messages () {
   const [messages, setMessages] = useState([]);
   const currentChat = useSelector(selectCurrentChat);
-  const [user] = useAuthState(auth);
 
-  const [localUser, setLocalUser] = useState();
+  const [localUser, setLocalUser] = useState(auth.currentUser);
 
   const messagesRef = useRef(null);
 
@@ -21,7 +19,7 @@ export default function Messages () {
   };
 
   useEffect(() => {
-    setLocalUser(user);
+    setLocalUser(auth.currentUser);
     if (currentChat !== "") {
       const messagesQuery = query(
         collection(db, currentChat),
@@ -38,7 +36,7 @@ export default function Messages () {
       });
       return () => unsubscribe;
     };
-  }, [currentChat, user]);
+  }, [currentChat]);
 
   useEffect(scrollToBottom, [messages]);
 

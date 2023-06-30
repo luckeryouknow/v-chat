@@ -2,15 +2,12 @@ import { StyledButton, StyledContainer, StyledFindUser, StyledInput, StyledButto
 import { useSelector, useDispatch } from "react-redux";
 import { close, setInputValue } from "./findUserSlice";
 import { selectFindUserMargin, selectInputValue } from "./findUserSlice";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 export default function FindUser () {
-  const [user] = useAuthState(auth);
-
-  const [localUser, setLocalUser] = useState(user);
+  const [localUser, setLocalUser] = useState(auth.currentUser);
 
   const margin = useSelector(selectFindUserMargin);
   const inputValue = useSelector(selectInputValue);
@@ -58,8 +55,8 @@ export default function FindUser () {
   };
 
   useEffect(() => {
-    setLocalUser(user)
-  }, [user]);
+    setLocalUser(auth.currentUser)
+  }, []);
   
   return (
     <StyledFindUser findUserMarginTop={margin}>

@@ -1,4 +1,3 @@
-import { useAuthState } from "react-firebase-hooks/auth";
 import { StyledChat, StyledChatImage, StyledChatName, StyledChatsList, StyledFindUserButton } from "./StyledChatsList";
 import { auth, db } from "../../firebase";
 import { useEffect, useState } from "react";
@@ -11,9 +10,8 @@ import { openChat } from "../CurrentChat/currentChatSlice";
 
 export default function ChatsList () {
   const [chats, setChats] = useState([]);
-  const [user] = useAuthState(auth);
 
-  const [localUser, setLocalUser] = useState();
+  const [localUser, setLocalUser] = useState(auth.currentUser);
 
   const dispatch = useDispatch();
 
@@ -22,7 +20,7 @@ export default function ChatsList () {
   };
 
   useEffect(() => {
-    setLocalUser(user);
+    setLocalUser(auth.currentUser);
 
     if (localUser) {
       const chatsQuery = query(
@@ -38,7 +36,7 @@ export default function ChatsList () {
       });
       return () => unsubscribe;
     }
-  }, [localUser, user]);
+  }, [localUser]);
 
   const chatClickHandler = (event) => {
     dispatch(setCurrentChat(event.target.id));

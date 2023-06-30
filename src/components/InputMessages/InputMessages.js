@@ -4,14 +4,12 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import { selectCurrentChat } from "../CurrentChat/currentChatSlice";
 import { useSelector } from "react-redux";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function InputMessages () {
   const [inputValue, setInputValue] = useState();
   const currentChat = useSelector(selectCurrentChat);
-  const [user] = useAuthState(auth);
 
-  const [localUser, setLocalUser] = useState();
+  const [localUser, setLocalUser] = useState(auth.currentUser);
 
   const inputHandler = (event) => {
     setInputValue(event.target.value);
@@ -40,8 +38,8 @@ export default function InputMessages () {
   };
 
   useEffect(() => {
-    setLocalUser(user)
-  }, [user])
+    setLocalUser(auth.currentUser)
+  }, [])
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
