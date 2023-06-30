@@ -23,9 +23,11 @@ export default function ChatsList () {
 
   onAuthStateChanged(auth, () => {
     setUser(auth.currentUser);
-    localStorage.setItem("localUser", JSON.stringify(user));
 
-    setLocalUser(JSON.parse(localStorage.getItem("localUser")));
+    if (user) {
+      localStorage.setItem("localUser", JSON.stringify(user));
+      setLocalUser(JSON.parse(localStorage.getItem("localUser")));
+    }
 
     if (localUser) {
       const chatsQuery = query(

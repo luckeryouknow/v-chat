@@ -19,8 +19,14 @@ export default function InputMessages () {
 
   const sendButtonHandler = async () => {
     let currentChatCopy = currentChat;
-    currentChatCopy = currentChatCopy.replace(localUser.displayName, "");
-    setInputValue("");
+    
+    if (user) {
+      localStorage.setItem("localUser", JSON.stringify(user));
+      setLocalUser(JSON.parse(localStorage.getItem("localUser")));
+
+      currentChatCopy = currentChatCopy.replace(localUser.displayName, "");
+      setInputValue("");
+    }
 
     if (inputValue !== "" && inputValue !== undefined && currentChat !== "") {
       await addDoc(collection(db, currentChat), {
@@ -41,8 +47,6 @@ export default function InputMessages () {
 
   useEffect(() => {
     setUser(auth.currentUser);
-    localStorage.setItem("localUser", JSON.stringify(user));
-    setLocalUser(JSON.parse(localStorage.getItem("localUser")));
   }, [user])
 
   const handleKeyDown = (event) => {
