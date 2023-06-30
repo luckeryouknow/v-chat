@@ -23,7 +23,7 @@ export default function Authentication () {
 
   onAuthStateChanged(auth, () => {
     localStorage.setItem("localUser", JSON.stringify(user));
-    setLocaluser(JSON.parse(localStorage.getItem("localUser")));
+    setLocalUser(JSON.parse(localStorage.getItem("localUser")));
 
     if (localUser) {
       setDoc(doc(db, "users", localUser.displayName), {
