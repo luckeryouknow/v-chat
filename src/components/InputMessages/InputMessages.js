@@ -13,22 +13,23 @@ export default function InputMessages () {
   const [user, setUser] = useState(auth.currentUser);
   const [localUser, setLocalUser] = useState();
 
+  useEffect(() => {
+    setUser(auth.currentUser);
+    localStorage.setItem("localUser", JSON.stringify(user));
+    setLocalUser(JSON.parse(localStorage.getItem("localUser")));
+  }, [user]);
+
   const inputHandler = (event) => {
     setInputValue(event.target.value);
   };
 
   const sendButtonHandler = async () => {
     let currentChatCopy = currentChat;
+    currentChatCopy = currentChatCopy.replace(localUser.displayName, "");
     
-    if (user) {
-      localStorage.setItem("localUser", JSON.stringify(user));
-      setLocalUser(JSON.parse(localStorage.getItem("localUser")));
+    setInputValue("");
 
-      currentChatCopy = currentChatCopy.replace(localUser.displayName, "");
-      setInputValue("");
-    }
-
-    if (inputValue !== "" && inputValue !== undefined && currentChat !== "") {
+    if (localUser && inputValue !== "" && inputValue !== undefined && currentChat !== "") {
       await addDoc(collection(db, currentChat), {
         message: inputValue,
         userName: localUser.displayName,
@@ -44,10 +45,6 @@ export default function InputMessages () {
       });
     };
   };
-
-  useEffect(() => {
-    setUser(auth.currentUser);
-  }, [user])
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
