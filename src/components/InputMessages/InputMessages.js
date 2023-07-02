@@ -4,17 +4,17 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import { selectCurrentChat } from "../CurrentChat/currentChatSlice";
 import { useSelector } from "react-redux";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 
 export default function InputMessages () {
   const [inputValue, setInputValue] = useState();
   const currentChat = useSelector(selectCurrentChat);
 
-  const [localUser, setLocalUser] = useState();
+  const [localUser] = useAuthState(auth);
 
   useEffect(() => {
     localStorage.setItem("localUser", JSON.stringify(auth.currentUser));
-    setLocalUser(JSON.parse(localStorage.getItem("localUser")));
   }, []);
 
   const inputHandler = (event) => {
