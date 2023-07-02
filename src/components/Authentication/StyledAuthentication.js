@@ -4,7 +4,7 @@ export const StyledAuthentication = styled.div`
   display: block;
   height: 100vh;
   width: 100%;
-  margin-top: ${props => props.marginTopProp || "0vh"};
+  margin-top: ${props => props.margin || "0vh"};
   position: absolute;
   z-index: 1;
   background-color: #D5E0E3;

@@ -4,7 +4,7 @@ export const StyledFindUser = styled.div`
   display: block;
   width: 100%;
   height: 100vh;
-  margin-top: ${props => props.findUserMarginTop || "0vh"};
+  margin-top: ${props => props.margin || "0vh"};
   position: absolute;
   z-index: 2;
   top: 0%;

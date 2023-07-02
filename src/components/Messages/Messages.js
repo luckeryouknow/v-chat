@@ -10,18 +10,12 @@ export default function Messages () {
   const [messages, setMessages] = useState([]);
   const currentChat = useSelector(selectCurrentChat);
 
-  const [user, setUser] = useState(auth.currentUser);
   const [localUser, setLocalUser] = useState();
 
   const messagesRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    setUser(auth.currentUser);
-    localStorage.setItem("localUser", JSON.stringify(user));
+  const getChatMessages = () => {
+    localStorage.setItem("localUser", JSON.stringify(auth.currentUser));
     setLocalUser(JSON.parse(localStorage.getItem("localUser")));
 
     if (currentChat !== "") {
@@ -40,7 +34,13 @@ export default function Messages () {
       });
       return () => unsubscribe;
     };
-  }, [currentChat, user]);
+  };
+
+  const scrollToBottom = () => {
+    messagesRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(getChatMessages, [currentChat]);
 
   useEffect(scrollToBottom, [messages]);
 

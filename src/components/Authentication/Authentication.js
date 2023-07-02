@@ -10,16 +10,14 @@ export default function Authentication () {
   const dispatch = useDispatch();
   const margin = useSelector(selectAuthenticationMargin);
 
-  const [user, setUser] = useState();
   const [localUser, setLocalUser] = useState();
 
   const signInHandler = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider);
 
-    setUser(auth.currentUser);
-    if (user) {
-      localStorage.setItem("localUser", JSON.stringify(user));
+    if (auth.currentUser) {
+      localStorage.setItem("localUser", JSON.stringify(auth.currentUser));
       setLocalUser(JSON.parse(localStorage.getItem("localUser")));
     }
 
@@ -37,7 +35,7 @@ export default function Authentication () {
   });
 
   return (
-    <StyledAuthentication marginTopProp={margin}>
+    <StyledAuthentication margin={margin}>
       <StyledLetter>V-<StyledChat>Chat</StyledChat></StyledLetter>
       <StyledSignInButton onClick={signInHandler}>Sign In</StyledSignInButton>
     </StyledAuthentication>

@@ -7,7 +7,6 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 export default function FindUser () {
-  const [user, setUser] = useState(auth.currentUser);
   const [localUser, setLocalUser] = useState();
 
   const margin = useSelector(selectFindUserMargin);
@@ -56,13 +55,12 @@ export default function FindUser () {
   };
 
   useEffect(() => {
-    setUser(auth.currentUser);
-    localStorage.setItem("localUser", JSON.stringify(user));
+    localStorage.setItem("localUser", JSON.stringify(auth.currentUser));
     setLocalUser(JSON.parse(localStorage.getItem("localUser")));
-  }, [user]);
+  }, []);
   
   return (
-    <StyledFindUser findUserMarginTop={margin}>
+    <StyledFindUser margin={margin}>
       <StyledContainer>
         <StyledInput onChange={findUserInputHandler}></StyledInput>
         <StyledButtonsContainer>

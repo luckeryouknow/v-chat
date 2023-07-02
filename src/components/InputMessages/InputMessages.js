@@ -10,15 +10,12 @@ export default function InputMessages () {
   const [inputValue, setInputValue] = useState();
   const currentChat = useSelector(selectCurrentChat);
 
-  const [user, setUser] = useState(auth.currentUser);
   const [localUser, setLocalUser] = useState();
 
   useEffect(() => {
-    setUser(auth.currentUser);
-
-    localStorage.setItem("localUser", JSON.stringify(user));
+    localStorage.setItem("localUser", JSON.stringify(auth.currentUser));
     setLocalUser(JSON.parse(localStorage.getItem("localUser")));
-  }, [user, currentChat]);
+  }, []);
 
   const inputHandler = (event) => {
     setInputValue(event.target.value);
