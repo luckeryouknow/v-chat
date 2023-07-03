@@ -16,7 +16,6 @@ export default function Messages () {
   const messagesRef = useRef(null);
 
   const getChatMessages = () => {
-    console.log("hello world");
     localStorage.setItem("localUser", JSON.stringify(localUser));
 
     if (currentChat !== "" && currentChat.includes(localUser.displayName)) {
