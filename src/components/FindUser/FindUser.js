@@ -4,10 +4,11 @@ import { close, setInputValue } from "./findUserSlice";
 import { selectFindUserMargin, selectInputValue } from "./findUserSlice";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function FindUser () {
-  const [localUser, setLocalUser] = useState();
+  const [localUser] = useAuthState(auth);
 
   const margin = useSelector(selectFindUserMargin);
   const inputValue = useSelector(selectInputValue);
@@ -56,7 +57,6 @@ export default function FindUser () {
 
   useEffect(() => {
     localStorage.setItem("localUser", JSON.stringify(auth.currentUser));
-    setLocalUser(JSON.parse(localStorage.getItem("localUser")));
   }, []);
   
   return (

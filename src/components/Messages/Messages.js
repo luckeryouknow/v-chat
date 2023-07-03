@@ -5,18 +5,18 @@ import { db } from "../../firebase";
 import { selectCurrentChat } from "../CurrentChat/currentChatSlice";
 import { useSelector } from "react-redux";
 import { auth } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Messages () {
   const [messages, setMessages] = useState([]);
   const currentChat = useSelector(selectCurrentChat);
 
-  const [localUser, setLocalUser] = useState();
+  const [localUser] = useAuthState(auth);
 
   const messagesRef = useRef(null);
 
   const getChatMessages = () => {
     localStorage.setItem("localUser", JSON.stringify(auth.currentUser));
-    setLocalUser(JSON.parse(localStorage.getItem("localUser")));
 
     if (currentChat !== "") {
       const messagesQuery = query(
