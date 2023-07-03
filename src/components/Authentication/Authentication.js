@@ -4,13 +4,13 @@ import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "firebas
 import { close, selectAuthenticationMargin } from "../Authentication/authenticationSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { doc, setDoc } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useState } from "react";
 
 export default function Authentication () {
   const dispatch = useDispatch();
   const margin = useSelector(selectAuthenticationMargin);
 
-  const [localUser] = useAuthState(auth);
+  const [localUser, setLocalUser] = useState();
 
   const signInHandler = () => {
     const provider = new GoogleAuthProvider();
@@ -18,6 +18,7 @@ export default function Authentication () {
 
     if (auth.currentUser) {
       localStorage.setItem("localUser", JSON.stringify(auth.currentUser));
+      setLocalUser(JSON.parse(localStorage.getItem("localUser")));
     }
 
     dispatch(close());
