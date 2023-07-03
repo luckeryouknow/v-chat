@@ -16,9 +16,10 @@ export default function Messages () {
   const messagesRef = useRef(null);
 
   const getChatMessages = () => {
-    localStorage.setItem("localUser", JSON.stringify(auth.currentUser));
+    console.log("hello world");
+    localStorage.setItem("localUser", JSON.stringify(localUser));
 
-    if (currentChat !== "") {
+    if (currentChat !== "" && currentChat.includes(localUser.displayName)) {
       const messagesQuery = query(
         collection(db, currentChat),
         orderBy("createdAt"),
@@ -40,7 +41,7 @@ export default function Messages () {
     messagesRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(getChatMessages, [currentChat]);
+  useEffect(getChatMessages, [currentChat, localUser]);
 
   useEffect(scrollToBottom, [messages]);
 
