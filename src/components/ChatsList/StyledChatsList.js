@@ -35,6 +35,7 @@ export const StyledChat = styled.div`
   cursor: pointer;
   color: #13044F;
   transition: 0.5s;
+  align-items: center;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
   -moz-user-select: none;
@@ -51,6 +52,7 @@ export const StyledChatImage = styled.img`
   display: block;
   width: 70px;
   border-radius: 50%;
+  margin-right: 15px;
 `;
 
 export const StyledChatName = styled.div`

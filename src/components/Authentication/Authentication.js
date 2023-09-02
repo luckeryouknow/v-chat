@@ -16,7 +16,7 @@ export default function Authentication () {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider);
 
-    if (auth.currentUser) {
+    if (auth) {
       localStorage.setItem("localUser", JSON.stringify(auth.currentUser));
       setLocalUser(JSON.parse(localStorage.getItem("localUser")));
     }

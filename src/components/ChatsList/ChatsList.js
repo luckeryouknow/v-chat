@@ -57,7 +57,7 @@ export default function ChatsList () {
            id={localUser.displayName + chat.name}
            onClick={chatClickHandler}
           />
-          <StyledChatName>{chat.name}</StyledChatName>
+          {chat.name}
         </StyledChat>
       ))}
     </StyledChatsList>
