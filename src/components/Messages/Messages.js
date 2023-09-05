@@ -37,7 +37,7 @@ export default function Messages () {
   };
 
   const scrollToBottom = () => {
-    messagesRef.current.scrollIntoView({ behavior: "smooth" });
+    messagesRef.current.scrollIntoView({ behavior: "instant" });
   };
 
   useEffect(getChatMessages, [currentChat, localUser]);
