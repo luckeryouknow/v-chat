@@ -1,4 +1,4 @@
-import { query, collection, orderBy, onSnapshot, limitToLast } from "firebase/firestore";
+import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
 import { useState, useEffect, useRef } from "react";
 import { StyledCurrentName, StyledCurrentUserMessage, StyledImage, StyledMessageText, StyledMessages, StyledName, StyledUserMessage, StyledUserMessageText } from "./StyledMessages";
 import { db } from "../../firebase";
@@ -21,8 +21,7 @@ export default function Messages () {
     if (currentChat !== "" && currentChat.includes(localUser.displayName)) {
       const messagesQuery = query(
         collection(db, currentChat),
-        orderBy("createdAt"),
-        limitToLast(50)
+        orderBy("createdAt")
       );
   
       const unsubscribe = onSnapshot(messagesQuery, (QuerySnapshot) => {

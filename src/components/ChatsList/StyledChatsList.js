@@ -55,6 +55,29 @@ export const StyledChatImage = styled.img`
   margin-right: 15px;
 `;
 
-export const StyledChatName = styled.div`
-  margin: auto 0 auto 10px;
+export const StyledDeleteContainer = styled.div`
+  display: ${props => props.display};
+  top: ${props => props.top};
+  left: ${props => props.left};
+  position: absolute;
+  width: 200px;
+  border-radius: 15px;
+  z-index: 1;
+`;
+
+export const StyledDeleteChat = styled.button`
+  width: 200px;
+  height: 50px;
+  border: none;
+  background-color: #FFFFFF;
+  border-radius: ${props => props.borderRadius};
+  color: black;
+  cursor: pointer;
+  z-index: 1;
+  transition: 1s ease;
+
+  &:hover {
+    background-color: #bf1313;
+    color: white;
+  }
 `;
