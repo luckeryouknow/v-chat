@@ -52,7 +52,7 @@ export default function ChatsList () {
   };
 
   const contextMenuHandler = async (event) => {
-    const maxX = window.innerWidth - 100;
+    const maxX = window.innerWidth - 200;
     const maxY = window.innerHeight - 100; 
     
     setDisplay("block");
