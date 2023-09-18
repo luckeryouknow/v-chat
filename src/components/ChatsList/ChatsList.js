@@ -9,6 +9,7 @@ import { open } from "../FindUser/findUserSlice";
 import { openChat } from "../CurrentChat/currentChatSlice";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+
 export default function ChatsList () {
   const [chats, setChats] = useState([]);
   const chatsListRef = useRef(null);
@@ -84,6 +85,8 @@ export default function ChatsList () {
     });
 
     await deleteDoc(doc(db, localUser.displayName + " chats", deleteChat.replace(localUser.displayName, "")));
+
+    dispatch(setCurrentChat(""));
   };
 
   const deleteChatForBothButtonHandler = async () => {
@@ -101,6 +104,8 @@ export default function ChatsList () {
 
     await deleteDoc(doc(db, localUser.displayName + " chats", deleteChat.replace(localUser.displayName, "")));
     await deleteDoc(doc(db, anotherUser + " chats", localUser.displayName));
+
+    dispatch(setCurrentChat(""));
   }
 
   useEffect(() => {
