@@ -146,10 +146,10 @@ export default function ChatsList () {
        top={`${positions.y}px`} 
        left={`${positions.x}px`}
       >
-        <StyledDeleteChat onClick={deleteChatForMeButtonHandler} borderRadius={"15px 15px 0px 0px"}>
+        <StyledDeleteChat onClick={deleteChatForMeButtonHandler} borderradius={"15px 15px 0px 0px"}>
           Delete for me
         </StyledDeleteChat>
-        <StyledDeleteChat onClick={deleteChatForBothButtonHandler} borderRadius={"0px 0px 15px 15px"}>
+        <StyledDeleteChat onClick={deleteChatForBothButtonHandler} borderradius={"0px 0px 15px 15px"}>
           Delete for both
         </StyledDeleteChat>
       </StyledDeleteContainer>

@@ -70,7 +70,7 @@ export const StyledDeleteChat = styled.button`
   height: 50px;
   border: none;
   background-color: #FFFFFF;
-  border-radius: ${props => props.borderRadius};
+  border-radius: ${props => props.borderradius};
   color: black;
   cursor: pointer;
   z-index: 1;
